@@ -1,9 +1,5 @@
 name: hydrun CI
 
-permissions:
-  contents: write
-  id-token: write
-  attestations: write
 
 on:
   push:
@@ -16,7 +12,9 @@ jobs:
   build-linux:
     runs-on: ${{ matrix.target.runner }}
     permissions:
+      id-token: write
       contents: read
+      attestations: write
     strategy:
       matrix:
         target:
@@ -60,7 +58,6 @@ jobs:
       - name: Attest output
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: ${{ matrix.target.id }}
           subject-path: ${{ matrix.target.dst }}
 
       - name: Upload output
