@@ -2,10 +2,8 @@ name: hydrun CI
 
 
 on:
-  push:
   pull_request:
-  schedule:
-    - cron: "0 0 * * 0"
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 jobs:
