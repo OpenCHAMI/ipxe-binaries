@@ -1,7 +1,9 @@
 name: hydrun CI
 
-permissions: write-all # Necessary for the generate-build-provenance action
-
+permissions:
+  contents: write
+  id-token: write
+  
 on:
   push:
   pull_request:
