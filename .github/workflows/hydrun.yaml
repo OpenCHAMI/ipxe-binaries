@@ -3,7 +3,8 @@ name: hydrun CI
 permissions:
   contents: write
   id-token: write
-  
+  attestation: write
+
 on:
   push:
   pull_request:
