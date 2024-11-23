@@ -42,7 +42,7 @@ jobs:
         with:
           script: |
             const newTag = '${{ steps.calculate_version.outputs.new_tag }}';
-            const ref = await github.git.createRef({
+            const ref = await github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: `refs/tags/${newTag}`,
