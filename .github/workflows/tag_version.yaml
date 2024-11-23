@@ -5,6 +5,9 @@ on:
     - cron: "0 0 * * 0"  # Runs every Sunday at midnight
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   tag-version:
     runs-on: ubuntu-latest
