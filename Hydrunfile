@@ -40,6 +40,7 @@ if [ "$1" = "c" ]; then
     EMBEDDED_MAKE CROSS_COMPILE="ccache " bin-i386-pcbios/ipxe.kpxe
     EMBEDDED_MAKE CROSS_COMPILE="ccache " bin-i386-efi/ipxe.efi
     EMBEDDED_MAKE CROSS_COMPILE="ccache " bin-x86_64-efi/ipxe.efi
+    EMBEDDED_MAKE CROSS_COMPILE="ccache " bin-x86_64-pcbios/undionly.kpxe
     EMBEDDED_MAKE CROSS_COMPILE="ccache arm-linux-gnueabi-" ARCH=arm32 bin-arm32-efi/snp.efi
     EMBEDDED_MAKE CROSS_COMPILE="ccache aarch64-linux-gnu-" ARCH=arm64 bin-arm64-efi/snp.efi
 
