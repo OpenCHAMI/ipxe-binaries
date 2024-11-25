@@ -50,6 +50,7 @@ if [ "$1" = "c" ]; then
     cp bin-x86_64-efi/ipxe.efi /tmp/out/ipxe-x86_64.efi
     cp bin-arm32-efi/snp.efi /tmp/out/ipxe-arm32.efi
     cp bin-arm64-efi/snp.efi /tmp/out/ipxe-arm64.efi
+    cp bin-x86_64-pcbios/undionly.kpxe /tmp/out/undionly.kpxe
     cp ../../config/config.go /tmp/out
     cp ../../config/config.ipxe /tmp/out
 
