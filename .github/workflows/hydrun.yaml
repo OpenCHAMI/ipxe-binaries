@@ -5,6 +5,12 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
   workflow_dispatch:
+    inputs:
+      ipxe_version:
+        description: 'iPXE git tag or commit to build (default: v2.0.0)'
+        required: false
+        default: 'v2.0.0'
+        type: string
   push:
     tags:
       - 'v*.*.*'
@@ -47,7 +53,9 @@ jobs:
           sudo install /tmp/hydrun /usr/local/bin
       - name: Build with hydrun
         working-directory: ${{ matrix.target.src }}
-        run: hydrun -o ${{ matrix.target.os }} ${{ matrix.target.flags }} "${{ matrix.target.cmd }}"
+        env:
+          IPXE_VERSION: ${{ inputs.ipxe_version }}
+        run: hydrun -o ${{ matrix.target.os }} ${{ matrix.target.flags }} -e "-e IPXE_VERSION=${IPXE_VERSION}" "${{ matrix.target.cmd }}"
       - name: Fix permissions for output
         run: sudo chown -R $USER .
       - name: Save ccache
@@ -57,6 +65,7 @@ jobs:
             /tmp/ccache
           key: cache-ccache-${{ matrix.target.id }}
       - name: Attest output
+        if: github.event_name != 'pull_request'
         uses: actions/attest-build-provenance@v1
         with:
           subject-path: ${{ matrix.target.dst }}
