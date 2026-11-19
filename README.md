@@ -1,12 +1,14 @@
 # iPXE Binaries
 
-Builds of [iPXE](https://ipxe.org/) pinned to a specific upstream release, with an [embedded script that chainloads /config.ipxe](./config/init.ipxe).
+Builds of [iPXE](https://ipxe.org/) pinned to a specific upstream release, with an [embedded script](./config/init.ipxe) that supports DHCPv4 and DHCPv6 boot configuration.
 
 [![hydrun CI](https://github.com/OpenCHAMI/ipxe-binaries/actions/workflows/hydrun.yaml/badge.svg)](https://github.com/OpenCHAMI/ipxe-binaries/actions/workflows/hydrun.yaml)
 
 ## Overview
 
-This repository builds iPXE binaries from a **pinned upstream version** (currently **v2.0.0**) with an embedded script that chainloads `/config.ipxe` relative to the TFTP server that iPXE was booted from.
+This repository builds iPXE binaries from a **pinned upstream version** (currently **v2.0.0**) with an embedded boot script.
+
+The embedded script accounts for both DHCPv4 and DHCPv6. For DHCPv4, it obtains a DHCPv4 lease, then chainloads `/config.ipxe` from the TFTP server identified by DHCP option 17 (`root-path`). For DHCPv6, it explicitly configures IPv6 and chainloads the bootfile URL received in DHCPv6 option 59 (`filename`). DHCPv6 booting is supported by the UEFI binaries; legacy BIOS builds do not include IPv6 support.
 
 ### Why v2.0.0?
 

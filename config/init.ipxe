@@ -1,4 +1,20 @@
 #!ipxe
 
-dhcp
+# DHCPv4 provides root-path (17), DHCPv6 provides the bootfile URL as filename (59).
+ifconf -c dhcp && goto ipv4
+ifconf -c ipv6 && goto ipv6
+
+echo No usable DHCP configuration
+shell
+
+:ipv4
 chain tftp://${root-path}:69/config.ipxe
+
+:ipv6
+isset ${filename} || goto no_bootfile
+echo Booting from ${filename}
+chain ${filename}
+
+:no_bootfile
+echo DHCPv6 supplied no bootfile URL
+shell
