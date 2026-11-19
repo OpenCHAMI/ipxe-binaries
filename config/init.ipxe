@@ -1,8 +1,8 @@
 #!ipxe
 
 # DHCPv4 provides root-path (17), DHCPv6 provides the bootfile URL as filename (59).
-ifconf -c dhcp && goto ipv4
-ifconf -c ipv6 && goto ipv6
+ifconf -c dhcp && goto ipv4 ||
+ifconf -c ipv6 && goto ipv6 ||
 
 echo No usable DHCP configuration
 shell
